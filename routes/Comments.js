@@ -3,9 +3,14 @@ const router = express.Router();
 
 const { Comments } = require("../models");
 
-router.get("/", async (req, res) => {
-  const listOfComment = await Comments.findAll();
-  res.json(listOfComment);
+router.get("/:postId", async (req, res) => {
+  const postId = req.params.postId;
+  const comments = await Comments.findAll({
+    where: {
+      PostId: postId,
+    },
+  });
+  res.json(comments);
 });
 
 router.post("/", async (req, res) => {
