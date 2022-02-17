@@ -9,10 +9,16 @@ app.use(cors());
 
 const db = require("./models");
 
-/*
 const postRouter = require("./routes/Posts");
 app.use("/posts", postRouter);
-*/
+const commentRouter = require("./routes/Posts");
+app.use("/comments", commentRouter);
+const userRouter = require("./routes/Posts");
+app.use("/users", userRouter);
+const likeRouter = require("./routes/Posts");
+app.use("/likes", likeRouter);
+const hateRouter = require("./routes/Posts");
+app.use("/hates", hateRouter);
 
 db.sequelize
   .sync()
