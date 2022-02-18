@@ -8,8 +8,9 @@ router.get("/", async (req, res) => {
   res.json(listOfPosts);
 });
 
-router.get("/byId/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
   const id = req.params.id;
+  console.log(id);
   const post = await Posts.findByPk(id);
   res.json(post);
 });
