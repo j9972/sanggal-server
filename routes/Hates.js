@@ -3,8 +3,6 @@ const router = express.Router();
 
 const { Hates } = require("../models");
 
-module.exports = router;
-
 router.post("/", async (req, res) => {
   const { PostId } = req.body;
 
