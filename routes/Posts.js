@@ -6,6 +6,9 @@ const { Posts, Likes, Hates } = require("../models");
 router.get("/", async (req, res) => {
   const listOfPosts = await Posts.findAll({
     include: [Likes, Hates], // posts + likes, hates 테이블 연결
+    attributes: {
+      exclude: ["password"],
+    },
   });
   res.json(listOfPosts);
 });
