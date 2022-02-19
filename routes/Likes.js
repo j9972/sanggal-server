@@ -6,12 +6,27 @@ const { Likes } = require("../models");
 router.post("/", async (req, res) => {
   const { PostId } = req.body;
 
-  const found = await Likes.findOne({ where: { PostId } });
-  if (!found) {
-    await Likes.create({
-      PostId,
-    });
-    res.json({ liked: true });
+  // Like에 데이터 들어오는거 보니까 postId만 같게 나오면 될거같음.
+  try {
+    // const found = await Likes.findOne({ where: { PostId } });
+    // if (!found) {
+    //   await Likes.create({
+    //     PostId,
+    //   });
+    //   res.json({ liked: true });
+    // } else {
+    //   await Likes.create({
+    //     where: {
+    //       PostId,
+    //     },
+    //   });
+    //   res.json({ liked: true });
+    // }
+    const like = req.body;
+    const newLike = await Likes.create(like);
+    res.json(newLike);
+  } catch (err) {
+    res.json({ msg: err });
   }
 });
 

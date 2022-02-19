@@ -6,12 +6,19 @@ const { Hates } = require("../models");
 router.post("/", async (req, res) => {
   const { PostId } = req.body;
 
-  const found = await Hates.findOne({ where: { PostId } });
-  if (!found) {
-    await Hates.create({
-      PostId,
-    });
-    res.json({ hated: true });
+  try {
+    // const found = await Hates.findOne({ where: { PostId } });
+    // if (!found) {
+    //   await Hates.create({
+    //     PostId,
+    //   });
+    //   res.json({ hated: true });
+    // }
+    const hate = req.body;
+    const newHate = await Likes.create(hate);
+    res.json(newHate);
+  } catch (err) {
+    res.json({ msg: err });
   }
 });
 
