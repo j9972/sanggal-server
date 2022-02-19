@@ -4,7 +4,7 @@ const router = express.Router();
 const { Likes } = require("../models");
 
 router.post("/", async (req, res) => {
-  const { PostId } = req.body;
+  // const { PostId } = req.body;
 
   // Like에 데이터 들어오는거 보니까 postId만 같게 나오면 될거같음.
   try {
