@@ -4,7 +4,7 @@ const router = express.Router();
 const { Hates } = require("../models");
 
 router.post("/", async (req, res) => {
-  const { PostId } = req.body;
+  //const { PostId } = req.body;
 
   try {
     // const found = await Hates.findOne({ where: { PostId } });
