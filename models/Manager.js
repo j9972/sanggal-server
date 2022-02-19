@@ -1,21 +1,16 @@
 module.exports = (sequelize, DataTypes) => {
-  const Comments = sequelize.define(
-    "Comments",
+  const Manager = sequelize.define(
+    "Manager",
     {
       username: {
         type: DataTypes.STRING,
         allowNull: false,
-        comment: "댓글을 다는 유저의 닉네임",
+        comment: "관리자의 닉네임",
       },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-        comment: "댓글을 다는 유저의 비밀번호",
-      },
-      commentBody: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        comment: "댓글 내용",
+        comment: "관리자의 비밀번호",
       },
     },
     {
@@ -26,11 +21,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  Comments.associate = (models) => {
-    Comments.hasMany(models.Manager, {
-      onDelete: "cascade",
-    });
-  };
-
-  return Comments;
+  return Manager;
 };
