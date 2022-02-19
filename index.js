@@ -18,6 +18,8 @@ const likeRouter = require("./routes/Likes");
 app.use("/likes", likeRouter);
 const hateRouter = require("./routes/Hates");
 app.use("/hates", hateRouter);
+const managerRouter = require("./routes/Manager");
+app.use("/manager", managerRouter);
 
 db.sequelize
   .sync()
