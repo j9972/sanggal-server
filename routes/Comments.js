@@ -20,21 +20,52 @@ router.get("/:postId", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
+  const { username, password, commentBody } = req.body;
+
+  bcrypt.hash(password, 10).then((hash) => {
+    Comments.create({
+      username,
+      password: hash,
+      commentBody,
+    });
+    res.json({ username, password, commentBody });
+  });
+  /*
   const comment = req.body;
   const newComment = await Comments.create(comment);
   res.json(newComment);
+  */
 });
 
 router.delete("/:commentId", async (req, res) => {
   const commentId = req.params.commentId;
+  const { newPassword } = req.body;
 
-  await Comments.destroy({
+  const findComment = await Comments.findOne({
     where: {
       id: commentId,
     },
   });
+  console.log("newPassword:", newPassword, "user:", findComment.password);
+  if (findComment) {
+    bcrypt.compare(newPassword, findComment.password).then(async (match) => {
+      if (!match) {
+        res.json({ error: "wrong password entered" });
+      } else {
+        bcrypt.hash(newPassword, 10).then((hash) => {
+          Comments.destroy({
+            where: {
+              id: commentId,
+            },
+          });
 
-  res.json("DELETE SUCCESS");
+          res.json("DELETE SUCCESS");
+        });
+      }
+    });
+  } else {
+    res.json({ error: " NO COMMENT IN OUR DATABASE" });
+  }
 });
 
 module.exports = router;
