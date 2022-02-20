@@ -5,7 +5,23 @@ module.exports = (sequelize, DataTypes) => {
     Likes.hasMany(models.Manager, {
       onDelete: "cascade",
     });
+
+    /*
+    Likes.hasMany(models.Posts, {
+      onDelete: "cascade",
+      //constraints: false,
+    });
+    */
+
+    /*
+    Likes.belongsToMany(models.Posts, {
+      onDelete: "cascade",
+      through: "LikeAndPost",
+    });
+*/
   };
 
   return Likes;
 };
+
+// like에 constraints: false

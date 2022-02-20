@@ -40,6 +40,11 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "cascade",
     });
 
+    // Posts.belongsToMany(models.Likes, {
+    //   onDelete: "cascade",
+    //   through: "LikeAndPost",
+    // });
+
     Posts.hasMany(models.Likes, {
       onDelete: "cascade",
     });
