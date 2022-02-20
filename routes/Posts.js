@@ -36,11 +36,6 @@ router.post("/", async (req, res) => {
     });
     res.json({ username, password, title, postText });
   });
-  /*
-  const post = req.body;
-  await Posts.create(post);
-  res.json(post);
-  */
 });
 
 router.delete("/:postId", async (req, res) => {
