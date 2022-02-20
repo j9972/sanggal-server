@@ -30,6 +30,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+/*
 // 게시물마다의 좋아요 get방식으로 보여주기 -> postid 기준으로 추천 버튼 누름을 보여줌
 router.get("/:postId", async (req, res) => {
   const postId = req.params.postId;
@@ -40,5 +41,6 @@ router.get("/:postId", async (req, res) => {
   });
   res.json(likes);
 });
+*/
 
 module.exports = router;
