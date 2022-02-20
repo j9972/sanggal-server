@@ -30,14 +30,31 @@ router.post("/", async (req, res) => {
 
 router.delete("/:postId", async (req, res) => {
   const postId = req.params.postId;
+  const { newPassword } = req.body;
 
-  await Posts.destroy({
+  const user = await Posts.findAll({
     where: {
-      id: postId,
+      username: req.post.username,
     },
   });
 
-  res.json("DELETE SUCCESS");
+  bcrypt.compare(newPassword, user.password).then(async (match) => {
+    if (!match) {
+      res.json({ error: "wrong password entered" });
+    }
+
+    bcrypt.hash(newPassword, 10).then((hash) => {
+      Posts.destroy({
+        where: {
+          id: postId,
+        },
+      });
+
+      res.json("DELETE SUCCESS");
+    });
+  });
 });
+
+//const { oldPassword, newPassword } = req.body;
 
 module.exports = router;

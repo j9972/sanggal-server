@@ -7,13 +7,13 @@ const bcrypt = require("bcryptjs");
 
 router.get("/:postId", async (req, res) => {
   const postId = req.params.postId;
-  const commentId = req.params.commentId;
+  //const commentId = req.params.commentId;
   const comments = await Comments.findAll({
     where: {
       PostId: postId,
     },
     attributes: {
-      exclude: ["password", "PostId", "commentId"],
+      exclude: ["password", "PostId"],
     },
   });
   res.json(comments);
