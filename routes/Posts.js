@@ -25,16 +25,14 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { username, password, title, postText } = req.body;
+  const { password } = req.body;
 
-  bcrypt.hash(password, 10).then((hash) => {
-    Posts.create({
-      username,
+  bcrypt.hash(password, 10).then(async (hash) => {
+    const newPost = await Posts.create({
+      ...req.body,
       password: hash,
-      title,
-      postText,
     });
-    res.json({ username, password, title, postText });
+    res.json(newPost);
   });
 });
 
