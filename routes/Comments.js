@@ -20,21 +20,22 @@ router.get("/:postId", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  const { username, password, commentBody } = req.body;
+  const { username, password, commentBody, updatedAt, PostId } = req.body;
 
   bcrypt.hash(password, 10).then((hash) => {
     Comments.create({
       username,
       password: hash,
       commentBody,
+      updatedAt,
+      PostId,
     });
-    res.json({ username, password, commentBody });
+    res.json({ username, password, commentBody, updatedAt, PostId });
   });
-  /*
-  const comment = req.body;
-  const newComment = await Comments.create(comment);
-  res.json(newComment);
-  */
+
+  // const comment = req.body;
+  // const newComment = await Comments.create(comment);
+  // res.json(newComment);
 });
 
 router.delete("/:commentId", async (req, res) => {

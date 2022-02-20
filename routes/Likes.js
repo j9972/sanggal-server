@@ -23,7 +23,6 @@ router.post("/", async (req, res) => {
     //   res.json({ liked: true });
     // }
     const like = req.body;
-    // like.countOfLike = req.like.countOfLike;
     const newLike = await Likes.create(like);
     res.json(newLike);
   } catch (err) {

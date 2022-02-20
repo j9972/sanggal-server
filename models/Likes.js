@@ -1,11 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const Likes = sequelize.define("Likes", {
-    countOfLike: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      comment: "게시글 좋아요 수",
-    },
-  });
+  const Likes = sequelize.define("Likes");
 
   Likes.associate = (models) => {
     Likes.hasMany(models.Manager, {
