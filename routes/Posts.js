@@ -12,6 +12,8 @@ router.get("/", async (req, res) => {
       exclude: ["password"],
     },
   });
+  console.log("findLikeSign:", findLikeSign);
+
   res.json(listOfPosts);
 });
 
@@ -19,6 +21,7 @@ router.get("/:id", async (req, res) => {
   const id = req.params.id;
   console.log(id);
   const post = await Posts.findByPk(id, {
+    include: [Likes, Hates],
     attributes: { exclude: ["password"] },
   });
   res.json(post);

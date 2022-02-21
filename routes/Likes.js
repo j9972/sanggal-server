@@ -1,31 +1,43 @@
 const express = require("express");
 const router = express.Router();
 
-const { Likes } = require("../models");
+const { Likes, Posts } = require("../models");
 
 router.post("/", async (req, res) => {
   // const { PostId } = req.body;
 
   // Like에 데이터 들어오는거 보니까 postId만 같게 나오면 될거같음.
   try {
-    // const found = await Likes.findOne({ where: { PostId } });
-    // if (!found) {
-    //   await Likes.create({
-    //     PostId,
-    //   });
-    //   res.json({ liked: true });
-    // } else {
-    //   await Likes.create({
-    //     where: {
-    //       PostId,
-    //     },
-    //   });
-    //   res.json({ liked: true });
-    // }
     const like = req.body;
     const newLike = await Likes.create(like);
+
+    /* 
+
+    " comment = db 컬럼에 좋아요 개수에 대한 정보를 찾고, 그를 update 방식으로 올려주는 
+      또 다른 방법 "
+
+    const foundPost = await Posts.findOne({
+      where: {
+        id: like.PostId,
+      },
+    });
+
+    const findLikeSign = await Posts.update(
+      {
+        countOfLike: parseInt(foundPost.countOfLike) + 1,
+      },
+      {
+        where: {
+          id: like.PostId,
+        },
+      }
+    );
+    console.log("findLikeSign: ", findLikeSign);
+    */
+
     res.json(newLike);
   } catch (err) {
+    //console.log("findLikeSign: ", findLikeSign);
     res.json({ msg: err });
   }
 });

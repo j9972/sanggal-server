@@ -22,11 +22,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         comment: "게시글의 내용",
       },
-      countOfLike: {
-        type: DataTypes.STRING,
-        defaultValue: 0,
-        comment: "게시글 좋아요 수",
-      },
+      // countOfLike: {
+      //   type: DataTypes.STRING,
+      //   defaultValue: 0,
+      //   comment: "게시글 좋아요 수",
+      // },
     },
     {
       charset: "utf8", // 한국어 설정
