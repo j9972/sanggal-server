@@ -12,7 +12,6 @@ router.get("/", async (req, res) => {
       exclude: ["password"],
     },
   });
-  console.log("findLikeSign:", findLikeSign);
 
   res.json(listOfPosts);
 });
