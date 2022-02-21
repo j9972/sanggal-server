@@ -5,14 +5,13 @@ const bcrypt = require("bcryptjs");
 
 const { Manager } = require("../models");
 
-const { validateToken } = require("../middleware/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
 
   bcrypt.hash(password, 10).then((hash) => {
-    Users.create({
+    Manager.create({
       username,
       password: hash,
     });
@@ -23,27 +22,32 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
-  const user = await Users.findOne({ where: { username } });
+  const manager = await Manager.findOne({ where: { username } });
 
-  if (!user) {
+  if (!manager) {
     res.json({ error: "User doesnt exist" });
   }
 
-  bcrypt.compare(password, user.password).then((match) => {
+  bcrypt.compare(password, manager.password).then((match) => {
     if (!match) {
       res.json({ error: "wrong username and password combination" });
     }
     const accessToken = sign(
-      { username: user.username, id: user.id },
+      { username: manager.username, id: manager.id },
       "importantSecretForSecurity"
     );
 
-    res.json({ token: accessToken, username, id: user.id });
+    res.json({ token: accessToken, username, id: manager.id });
   });
 });
 
-router.get("/manager-id", (req, res) => {
-  res.json(req.user);
+router.get("/manager-id/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const manager = await Manager.findByPk(id, {
+    attributes: { exclude: ["password"] },
+  });
+  res.json(manager);
 });
 
 module.exports = router;
