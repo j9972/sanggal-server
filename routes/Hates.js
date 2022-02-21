@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
     //   res.json({ hated: true });
     // }
     const hate = req.body;
-    const newHate = await Likes.create(hate);
+    const newHate = await Hates.create(hate);
     res.json(newHate);
   } catch (err) {
     res.json({ msg: err });
