@@ -38,6 +38,44 @@ router.post("/", async (req, res) => {
   });
 });
 
+router.put("/update-word/:postId", async (req, res) => {
+  const postId = req.params.postId;
+  const { newText, newTitle, newPassword } = req.body;
+
+  const user = await Posts.findOne({
+    where: {
+      id: postId,
+    },
+  });
+
+  console.log("newPassword:", newPassword, "user:", user.password);
+  if (user) {
+    bcrypt.compare(newPassword, user.password).then(async (match) => {
+      if (!match) {
+        res.json({ error: "wrong password entered" });
+      } else {
+        bcrypt.hash(newPassword, 10).then((hash) => {
+          Posts.update(
+            {
+              postText: newText,
+              title: newTitle,
+            },
+            {
+              where: {
+                id: postId,
+              },
+            }
+          );
+
+          res.json({ newText, newTitle });
+        });
+      }
+    });
+  } else {
+    res.json({ error: " NO USER IN OUR DATABASE" });
+  }
+});
+
 router.delete("/:postId", async (req, res) => {
   const postId = req.params.postId;
   const { newPassword } = req.body;
