@@ -8,10 +8,11 @@ const { Manager } = require("../models");
 const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
-  const { username, password } = req.body;
+  const { email, username, password } = req.body;
 
   bcrypt.hash(password, 10).then((hash) => {
     Manager.create({
+      email,
       username,
       password: hash,
     });
