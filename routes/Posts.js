@@ -40,8 +40,21 @@ router.post("/", async (req, res) => {
 
 router.put("/update-word/:postId", async (req, res) => {
   const postId = req.params.postId;
-  const { newText, newTitle, newPassword } = req.body;
+  const { newText, newTitle } = req.body;
 
+  await Posts.update(
+    {
+      postText: newText,
+      title: newTitle,
+    },
+    {
+      where: {
+        id: postId,
+      },
+    }
+  );
+  res.json({ newText, newTitle });
+  /*
   const user = await Posts.findOne({
     where: {
       id: postId,
@@ -74,6 +87,7 @@ router.put("/update-word/:postId", async (req, res) => {
   } else {
     res.json({ error: " NO USER IN OUR DATABASE" });
   }
+  */
 });
 
 router.delete("/:postId", async (req, res) => {

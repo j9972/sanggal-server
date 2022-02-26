@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 
 const { Users } = require("../models");
 
-const { validateToken } = require("../middleware/AuthMiddleware");
 const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
