@@ -6,7 +6,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         validate: {
           isEmail: true,
-          notNull: true,
         },
         allowNull: false,
         comment: "이메일",
@@ -20,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         comment: "관리자의 비밀번호",
+      },
+      refreshTokens: {
+        type: DataTypes.STRING,
+        comment: "관리자의 refresh token",
       },
     },
     {

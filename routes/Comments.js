@@ -7,7 +7,6 @@ const bcrypt = require("bcryptjs");
 
 router.get("/:postId", async (req, res) => {
   const postId = req.params.postId;
-  //const commentId = req.params.commentId;
   const comments = await Comments.findAll({
     where: {
       PostId: postId,
@@ -29,10 +28,6 @@ router.post("/", async (req, res) => {
     });
     res.json(newComment);
   });
-
-  // const comment = req.body;
-  // const newComment = await Comments.create(comment);
-  // res.json(newComment);
 });
 
 router.delete("/:commentId", async (req, res) => {

@@ -2,7 +2,7 @@ const { verify } = require("jsonwebtoken");
 require("dotenv").config();
 
 const validateToken = (req, res, next) => {
-  const accessToken = req.header("accessToken");
+  const accessToken = req.header("x-auth-token");
 
   if (!accessToken) {
     res.status(401).json({
