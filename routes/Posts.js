@@ -69,7 +69,7 @@ router.post("/", async (req, res) => {
     const newPost = await Posts.create({
       ...req.body,
       password: hash,
-      img: imgData,
+      //img: imgData,
     });
     res.json(newPost);
   });
