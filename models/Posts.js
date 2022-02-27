@@ -1,3 +1,5 @@
+const { BLOB } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   const Posts = sequelize.define(
     "Posts",
@@ -21,6 +23,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         comment: "게시글의 내용",
+      },
+      img: {
+        type: DataTypes.BLOB("long"),
+        comment: "게시글 사진",
       },
       // countOfLike: {
       //   type: DataTypes.STRING,
