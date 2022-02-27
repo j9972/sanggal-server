@@ -1,7 +1,43 @@
 const express = require("express");
 const router = express.Router();
+const path = require("path");
 
 const bcrypt = require("bcryptjs");
+
+const multer = require("multer");
+const fs = require("fs");
+/*
+const imageFilter = (req, file, cb) => {
+  if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+    return cb(new Error("Only image files are allowed"));
+  }
+  cb(null, true);
+};
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // cb == call back function
+    cb(null, "../imgs");
+  },
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
+});
+
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, __basedir + "/app/static/assets/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-bezkoder-${file.originalname}`);
+  },
+});
+*/
+// const uploadFile = multer({ storage: storage, fileFilter: imageFilter }).array(
+//   "photo"
+// );
 
 const { Posts, Likes, Hates } = require("../models");
 
@@ -33,9 +69,32 @@ router.post("/", async (req, res) => {
     const newPost = await Posts.create({
       ...req.body,
       password: hash,
+      img: imgData,
     });
     res.json(newPost);
   });
+
+  /*
+  uploadFile(req, res, (err) => {
+    const imgData = fs
+      .readFileSync(`app${req.file.path.split("app")[1]}`)
+      .toString("base64");
+
+    // bcrypt.hash(password, 10).then(async (hash) => {
+    //   const newPost = await Posts.create({
+    //     ...req.body,
+    //     password: hash,
+    //     img: imgData,
+    //   });
+    //   res.json(newPost);
+    // });
+
+    // db에 저장
+    //await Posts.create({ img: imgData });
+
+    //res.json({ img: imgData });
+  });
+  */
 });
 
 router.put("/update-word/:postId", async (req, res) => {
