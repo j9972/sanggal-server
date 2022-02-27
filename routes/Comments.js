@@ -4,7 +4,6 @@ const router = express.Router();
 const { Comments } = require("../models");
 
 const bcrypt = require("bcryptjs");
-console.log("hi");
 router.get("/:postId", async (req, res) => {
   const postId = req.params.postId;
   const comments = await Comments.findAll({
